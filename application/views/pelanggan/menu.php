@@ -1,3 +1,17 @@
+<style>
+	.card-menu .card-img-top {
+		width: 100%;
+		height: 180px; 
+		object-fit: cover; 
+		object-position: center;
+	}
+
+	@media (min-width: 768px) {
+		.card-menu .card-img-top {
+			height: 400px;
+		}
+	}
+</style>
 <div class="content-header">
 	<div class="container-fluid">
 		<div class="d-flex justify-content-between align-items-center mb-2">
@@ -25,7 +39,7 @@
 			<?php if (!empty($menus)): ?>
 				<?php foreach ($menus as $menu): ?>
 					<div class="col-6 col-md-4 mb-3">
-						<div class="card card-menu h-100 border-0 shadow-sm">
+						<div class="card card-menu h-500 border-0 shadow-sm">
 							<?php
 							$img_path = FCPATH . 'assets/img/menu/' . $menu->gambar;
 							$img_url  = (!empty($menu->gambar) && file_exists($img_path))

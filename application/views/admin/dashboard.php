@@ -35,6 +35,18 @@
 						<p>Dashboard Pesanan</p>
 					</a>
 				</li>
+				<li class="nav-item">
+					<a href="<?= base_url('menu_admin'); ?>" class="nav-link">
+						<i class="nav-icon fas fa-utensils"></i>
+						<p>Kelola Menu</p>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="<?= base_url('meja_admin'); ?>" class="nav-link">
+						<i class="nav-icon fas fa-chair"></i>
+						<p>Kelola Meja</p>
+					</a>
+				</li>
 			</ul>
 		</nav>
 	</div>

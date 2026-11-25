@@ -42,7 +42,7 @@ class Admin extends CI_Controller
 		{
 			$this->Order_model->update_status_order($kode_order, array(
 				'status_pembayaran' => 'lunas',
-				'status_pesanan' => 'selesai'
+				'status_pesanan' => 'diproses'
 			));
 		}
 		redirect('admin');
