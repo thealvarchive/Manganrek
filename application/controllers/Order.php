@@ -10,7 +10,7 @@ class Order extends CI_Controller
 		$this->load->model('Menu_model');
 		$this->load->model('Order_model');
 
-		if (!$this->session->userdata('meja_nomro'))
+		if (!$this->session->userdata('nomor_meja'))
 		{
 			$this->session->set_userdata('nomor_meja', '05');
 		}
@@ -51,19 +51,23 @@ class Order extends CI_Controller
 	{
 		if (!empty($meja))
 		{
-			$this->session->set_userdata('nomor_meja', $meja);
+			$meja_row = $this->Menu_model->get_meja_by_nomor($meja);
+
+			if (!$meja_row || $meja_row->status === 'nonaktif')
+			{
+				show_404();
+			}
+
+			$this->session->set_userdata('nomor_meja', $meja_row->nomor_meja);
+		}
+		elseif (!$this->session->userdata('nomor_meja'))
+		{
+			$this->session->set_userdata('nomor_meja', '05');
 		}
 
 		$kategori = $this->input->get('kategori');
-		if (empty($kategori))
-		{
-			$kategori_aktif = 'semua';
-		}
-		else
-		{
-			$kategori_aktif = $kategori;
-		}
-
+		$kategori_aktif = empty($kategori) ? 'semua' : $kategori;
+		
 		$cart = $this->_cart();
 		
 		$data = array(
@@ -162,21 +166,17 @@ class Order extends CI_Controller
 
 		$meja = $this->session->userdata('nomor_meja');
 		$meja_row = $this->Menu_model->get_meja_by_nomor($meja);
+		if (!$meja_row || $meja_row->status === 'nonaktif')
+		{
+			show_404();
+		}
+
 		$ringakasan = $this->_ringkasan($cart);
 		$kode_order = 'ORD-' . date('Ymd') . '-' . $meja . '-' . rand(100, 999);
-		
-		if ($meja_row)
-		{
-			$meja_id = $meja_row->id;
-		}
-		else
-		{
-			$meja_id = null;
-		}
 
 		$order_data = array(
 			'kode_order' => $kode_order,
-			'meja_id' => $meja_id,
+			'meja_id' => $meja_row->id,
 			'nama_pemesan' => $this->input->post('nama_pemesan', true),
 			'nomor_handphone' => $this->input->post('nomor_handphone', true),
 			'catatan_umum' => $this->input->post('catatan_umum', true),

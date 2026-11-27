@@ -35,6 +35,6 @@
 	<nav class="navbar navbar-dark bg-dark sticky-top shadow-sm">
 		<div class="container">
 			<span class="navbar-brand mb-0 h1">Manganrek</span>
-			<span class="badge bg-warning text-dark fs-6">Meja #05</span>
+			<span class="badge bg-warning text-dark fs-6">Meja #<?= htmlspecialchars($nomor_meja ?? '05'); ?></span>
 		</div>
 	</nav>
