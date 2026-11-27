@@ -11,7 +11,7 @@
 		<!-- Sidebar user panel -->
 		<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 			<div class="image">
-				<img src="<?php echo base_url('assets/dist/img/user2-160x160.jpg') ?>" class="img-circle elevation-2" alt="User Image">
+				<img src="<?php echo base_url('assets/dist/img/image.png') ?>" class="img-circle elevation-2" alt="User Image">
 			</div>
 			<div class="info">
 				<a href="#" class="d-block">
@@ -36,6 +36,26 @@
 					</a>
 				</li>
 			</ul>
+			<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+				<li class="nav-item">
+					<a href="<?= base_url('admin/dashboard_kitchen'); ?>" class="nav-link">
+						<i class="nav-icon fas fa-coffee"></i>
+						<p>Dashboard Dapur</p>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="<?= base_url('admin/dashboard_pantry'); ?>" class="nav-link">
+						<i class="nav-icon fas fa-warehouse"></i>
+						<p>Dashboard Pantry</p>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="<?= base_url('admin/laporan'); ?>" class="nav-link">
+						<i class="nav-icon fas fa-file-invoice-dollar"></i>
+						<p>Riwayat & Rekap</p>
+					</a>
+				</li>
+			</ul>
 		</nav>
 	</div>
 </aside>
@@ -51,7 +71,8 @@
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item active">Dashboard</li>
+						<li class="breadcrumb-item"><?php echo $title; ?></li>
+						<li class="breadcrumb-item active"><a href="<?php echo site_url('admin/dashboard_kitchen'); ?>">Dashboard Dapur</a></li>
 					</ol>
 				</div>
 			</div>
@@ -207,14 +228,13 @@
 													Item
 												</button>
 
-												<?php if ($row->status_pembayaran === 'belum_bayar') : ?>
-													<a href="<?= base_url('admin/proses/' . $row->kode_order); ?>" class="btn btn-xs btn-success">
-														Bayar & Proses
+												<?php if ($row->status_pesanan === 'menunggu') : ?>
+													<!-- Tombol konfirmasi agar pesanan masuk ke layar TV Dapur (KDS) -->
+													<a href="<?= base_url('admin/proses/' . $row->kode_order); ?>" class="btn btn-xs btn-warning font-weight-bold">
+														<i class="fas fa-paper-plane mr-1"></i> Konfirmasi ke Dapur
 													</a>
 												<?php elseif ($row->status_pesanan === 'diproses') : ?>
-													<a href="<?= base_url('admin/selesai/' . $row->kode_order); ?>" class="btn btn-xs btn-primary">
-														Selesai
-													</a>
+													<span class="badge badge-info">Sudah di TV Dapur</span>
 												<?php endif; ?>
 											</td>
 										</tr>
